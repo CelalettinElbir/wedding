@@ -34,6 +34,9 @@ Route::controller(authcontroller::class)->group(function () {
 });
 
 Route::controller(CompanyController::class)->group(function () {
+    route::get("/company/create", "create");
     route::get("/company", "index");
     route::get("/company/{company}", "show");
+    route::post("/company/create","store");
+
 });

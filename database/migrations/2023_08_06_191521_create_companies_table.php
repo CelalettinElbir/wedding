@@ -16,9 +16,15 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->string("company_name");
             $table->string("telno");
             $table->longText("description");
-            // $table->integer("star");
+            $table->unsignedInteger("capasity");
+            $table->unsignedInteger("mealcapacity");
+            $table->unsignedInteger("price");
+            $table->string("location");
+            $table->string('email')->unique();
+            $table->string('password');
             $table->timestamps();
         });
     }

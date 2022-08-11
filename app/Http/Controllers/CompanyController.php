@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\company;
+use App\Models\companyimages;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -17,6 +19,10 @@ class CompanyController extends Controller
         return view("company.index", ['data' => company::all()]);
     }
 
+
+
+
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +30,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+
+        return view("company.create");
     }
 
     /**
@@ -35,7 +42,39 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $files = $request->files;
+        $validated = $request->validate([
+            'name' => 'required',
+            "company_name" => 'required',
+            "telno" => 'required',
+            "description" => 'required',
+            'email' => 'required|email',
+            "password" => 'required|confirmed',
+            "capasity" => 'required',
+            "mealcapacity" => 'required',
+            "price" => 'required',
+            "location" => 'required',
+        ]);
+
+
+        // $data["password"] = bcrypt($data['password']);
+
+
+        $company = company::create($validated);
+        foreach ($request->file('file_path') as $item) {
+            $image = new companyimages();
+            $path = $item->store('/images/resource', ['disk' =>   'my_files']);
+            $image->url = $path;
+            $image->company_id = $company->id;
+            $image->save();
+        };
+
+
+
+        // auth()->login($company);
+        return redirect()->route("home")->with("message", "firma başarıyla oluşturuldu!!");
     }
 
     /**
@@ -45,8 +84,10 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(company $company)
+
+
     {
-        return view("company.show",["company" => $company]);
+        return view("company.show", ["company" => $company]);
     }
 
     /**

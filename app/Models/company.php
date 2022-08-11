@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\package;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,15 +9,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class company extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
 
+    // public function takePackage()
+    // {
+    //     $data =  DB::table('packages')->where('company_id', $this->id)->get();
+    //     return $data;
+    // }
 
-    public function takePackage()
-    {
 
+    public function takeimages(){
 
-        $data =  DB::table('packages')->where('company_id', $this->id)->get();
-
-        return $data;
+        $data = Db::table("companyimages")->where("company_id",$this->id)->get();
+        
+        return  $data;
     }
 }

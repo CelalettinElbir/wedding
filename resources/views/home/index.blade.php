@@ -3,7 +3,7 @@
 @section('content')
     <div class="hero ">
 
-        <img src={{ asset('img/7.jpg') }} class="w-100 rounded opacity-25 " style="height:500px">
+        <img src={{ asset('img/5.jpg') }} class="w-100 rounded opacity-25 " style="height:500px">
 
         <div class="centered">
 
@@ -13,8 +13,8 @@
     </div>
 
     <div class="hero-icons d-flex justify-content-around p-4">
-        <i class="fa-solid fa-clock fa-4x  gap-10"></i>
-        <i class="fa-solid fa-lightbulb fa-4x"></i>
-        <i class="fa-solid fa-envelope fa-4x"></i>
+        <i class="fa-solid fa-clock fa-2x  gap-10"></i>
+        <i class="fa-solid fa-lightbulb fa-2x"></i>
+        <i class="fa-solid fa-envelope fa-2x"></i>
     </div>
 @endsection
