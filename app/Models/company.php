@@ -25,4 +25,7 @@ class company extends Model
         
         return  $data;
     }
+
+
+
 }

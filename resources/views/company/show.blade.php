@@ -9,8 +9,12 @@
             <h1 class="hero-title"> {{ $company->company_name }}</h1>
             <div class="detail d-flex justify-content-between">
                 <div class="menu-left d-flex">
-                    <form class="">
-                        <button class="btn btn-info">istek oluştur</button>
+
+
+                    <form method="POST" class="" action="/company/favorite/{company}">
+                        @csrf
+                        {{-- <input type="hidden" name="deneme"> --}}
+                        <button type="submit" class="btn btn-info">istek oluştur</button>
                     </form>
                     <div class="star p-2">
                         <span><i class="fa fa-star" aria-hidden="true"></i> 5.0</span>
@@ -21,11 +25,12 @@
                     </div>
                 </div>
                 <div class="menu-left">
-                    <div class="contact ">
-                        <button class="btn "><span class="m-2"><i class="fa fa-heart "
-                                    aria-hidden="true"></i></span>favorilere ekle
+                    <form method="POST" class="contact" action="{{ route('add-favorite',[$company]) }}">
+                        @csrf
+                        <button class="btn" type="submit"><span class="m-2"><i class="fa fa-heart "
+                                    aria-hidden="true"></i>favorilere ekle</span>
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -70,16 +75,7 @@
                                     aria-hidden="true"></i></i></span>{{ $company->location }}
                         </p>
                     </li>
-
-
-
-
                 </ul>
-
-
-
-
-
             </div>
 
 

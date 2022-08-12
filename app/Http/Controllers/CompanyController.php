@@ -22,7 +22,7 @@ class CompanyController extends Controller
 
 
 
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -42,9 +42,6 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        $files = $request->files;
         $validated = $request->validate([
             'name' => 'required',
             "company_name" => 'required',
@@ -87,6 +84,7 @@ class CompanyController extends Controller
 
 
     {
+        // dd($company);
         return view("company.show", ["company" => $company]);
     }
 

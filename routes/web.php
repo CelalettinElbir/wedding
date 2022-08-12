@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\homeController;
 
 /*
@@ -31,12 +32,18 @@ Route::controller(authcontroller::class)->group(function () {
     Route::get("/user/login", "login");
     Route::post("/user/login", "authenticate");
     Route::post("/user/logout", "logout");
+
 });
 
 Route::controller(CompanyController::class)->group(function () {
     route::get("/company/create", "create");
     route::get("/company", "index");
     route::get("/company/{company}", "show");
-    route::post("/company/create","store");
+    route::post("/company/create", "store");
+});
+
+route::controller(FavoriteController::class)->group(function () {
+    route::post("/company/favorite/{company}", "store")->name("add-favorite");
+    Route::get("/user/favorites","index")->name("index-favorites");
 
 });

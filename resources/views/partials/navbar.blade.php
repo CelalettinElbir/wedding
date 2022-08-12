@@ -21,13 +21,22 @@
 
 
             @auth
+                <div class="d-flex">
 
-                <form method="POST" action="/user/logout" class="nav-item">
-                    @csrf
-                    <ul class="navbar-nav">
-                        <button type="submit" class="btn text-light ">Logout {{ auth()->user()->name }}</button>
-                    </ul>
-                </form>
+                    <form method="POST" action="/user/logout" class="nav-item">
+                        @csrf
+                        <ul class="navbar-nav">
+                            <button type="submit" class="btn text-light ">Logout {{ auth()->user()->name }}</button>
+                        </ul>
+                    </form>
+
+                    <a href="{{ route('index-favorites') }}" class="btn"> <span><i class="fa fa-heart"
+                                aria-hidden="true"></i></span> favorilerim </a>
+
+
+                </div>
+
+
 
             @endauth
 
