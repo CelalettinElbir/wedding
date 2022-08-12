@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\company;
 use App\Models\favorite;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+use function PHPSTORM_META\map;
 
 class FavoriteController extends Controller
 {
@@ -14,7 +20,21 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        //
+        //login olan kullanıcının favorilerini getirdim .
+        // $user_favs = favorite::where("user_id", auth::user()->id)->get();
+        // dd($user_favs->takeCompany());
+        //company id dem detayları bulmam gerekiyor.
+        // company::where("company_id",$user_favs );
+
+        //compani id
+        foreach (auth::user()->favorites as $item) {
+            dd($item);
+
+        }   
+
+
+
+        // return view("favorite.index", ["favorites" => $user_favs]);
     }
 
     /**
@@ -30,12 +50,27 @@ class FavoriteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request 
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Company $company)
     {
-        //
+
+        //favorilerde var mı ?
+        $isexist = favorite::where('user_id', '=', auth::user()->id)->where("company_id", "=", $company->id)->exists();
+
+        if ($isexist == true) {
+
+            return back()->with("message", "favorile çoktan eklendi.");
+        } else {
+            if (auth()->check()) {
+                $favoriteCompany = new favorite();
+                $favoriteCompany->company_id = $company->id;
+                $favoriteCompany->user_id = auth::user()->id;
+                $favoriteCompany->save();
+            }
+            return redirect("/company")->with("message", "favorilere başarıyla eklendi!!");
+        }
     }
 
     /**
@@ -46,7 +81,6 @@ class FavoriteController extends Controller
      */
     public function show(favorite $favorite)
     {
-        //
     }
 
     /**
