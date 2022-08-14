@@ -1,10 +1,25 @@
 @extends('layout')
 
 @section('content')
-    <div class="company-container ">
-
-
+    <div class="company-container col-md-6 mx-auto ">
         @foreach ($data as $item)
+            <div class="card m-3 " style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ asset('/' . $item->takeimages()->first()->url) }}" class="img-fluid rounded-start"
+                            alt="..."> 
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $item->company_name }}</h5>
+                            <p class="card-text">{{ $item->description }}</p>
+                            <p class="card-text"><small class="text-muted">{{ $item->created_at }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        {{-- @foreach ($data as $item)
             <div class="col-md-6 mx-auto m-4 border border-primary d-flex p-1">
                 <div class="company-img m-3">
                     <img src="{{ asset('/' . $item->takeimages()->first()->url) }}" style=" width:200px" />
@@ -19,11 +34,11 @@
                         <p>{{ substr($item->description, 0, 150) }} ...read more</p>
                     @else
                         <p>{{ $item->description }}</p>
-                    @endif
+                    @endif --}}
 
-                    {{-- <p>{{ $item->description }}</p> --}}
+        {{-- <p>{{ $item->description }}</p> --}}
 
-                    <div class="company-footer d-flex justify-content-between">
+        {{-- <div class="company-footer d-flex justify-content-between">
 
                         <div class="d-flex">
                             <p class="m-3">{{ $item->price }}</p>
@@ -43,6 +58,6 @@
 
 
             </div>
-        @endforeach
+        @endforeach --}}
     </div>
 @endsection

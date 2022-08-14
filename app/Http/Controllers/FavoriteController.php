@@ -20,21 +20,7 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        //login olan kullanıcının favorilerini getirdim .
-        // $user_favs = favorite::where("user_id", auth::user()->id)->get();
-        // dd($user_favs->takeCompany());
-        //company id dem detayları bulmam gerekiyor.
-        // company::where("company_id",$user_favs );
-
-        //compani id
-        foreach (auth::user()->favorites as $item) {
-            dd($item);
-
-        }   
-
-
-
-        // return view("favorite.index", ["favorites" => $user_favs]);
+        return view("favorite.index");
     }
 
     /**

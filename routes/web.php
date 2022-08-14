@@ -29,7 +29,7 @@ route::get("/", [homeController::class, "index"])->name("home");
 Route::controller(authcontroller::class)->group(function () {
     Route::get('/user/register', 'create');
     Route::post('/user/register', 'store');
-    Route::get("/user/login", "login");
+    Route::get("/user/login", "login")->name("login");
     Route::post("/user/login", "authenticate");
     Route::post("/user/logout", "logout");
 
@@ -38,12 +38,12 @@ Route::controller(authcontroller::class)->group(function () {
 Route::controller(CompanyController::class)->group(function () {
     route::get("/company/create", "create");
     route::get("/company", "index");
-    route::get("/company/{company}", "show");
+    route::get("/company/{company}", "show")->name("company-detail");
     route::post("/company/create", "store");
 });
 
 route::controller(FavoriteController::class)->group(function () {
-    route::post("/company/favorite/{company}", "store")->name("add-favorite");
-    Route::get("/user/favorites","index")->name("index-favorites");
+    route::post("/company/favorite/{company}", "store")->name("add-favorite")->middleware('auth');;
+    Route::get("/user/favorites","index")->name("index-favorites")->middleware('auth');;
 
 });

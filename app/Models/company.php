@@ -12,11 +12,6 @@ class company extends Model
     protected $guarded = [];
 
 
-    // public function takePackage()
-    // {
-    //     $data =  DB::table('packages')->where('company_id', $this->id)->get();
-    //     return $data;
-    // }
 
 
     public function takeimages(){
@@ -26,6 +21,12 @@ class company extends Model
         return  $data;
     }
 
+
+
+    public function users(){
+
+        return $this->belongsToMany(user::class,"favorites");
+    } 
 
 
 }
