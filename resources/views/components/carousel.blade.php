@@ -8,11 +8,11 @@
         @foreach ($company->takeimages() as $image)
             @if ($company->takeimages()->first()->id == $image->id)
                 <div class="carousel-item active w-100">
-                    <img src="{{ asset('/' . $image->url) }}" class="d-block w-100 rounded" style="height:400px; " />
+                    <img src="{{ asset('/images/resource/' . $image->url) }}" class="d-block w-100 rounded" style="height:400px; " />
                 </div>
             @else
                 <div class="carousel-item w-100 ">
-                    <img src="{{ asset('/' . $image->url) }}" class="d-block w-100 rounded" style="height:400px ;" />
+                    <img src="{{ asset('/images/resource/' . $image->url) }}" class="d-block w-100 rounded" style="height:400px ;" />
                 </div>
             @endif
         @endforeach

@@ -31,7 +31,7 @@ Route::controller(authcontroller::class)->group(function () {
     Route::post('/user/register', 'store');
     Route::get("/user/login", "login")->name("login");
     Route::post("/user/login", "authenticate");
-    Route::post("/user/logout", "logout");
+    Route::post("/user/logout", "logout")->name("logout");
 
 });
 
@@ -47,3 +47,6 @@ route::controller(FavoriteController::class)->group(function () {
     Route::get("/user/favorites","index")->name("index-favorites")->middleware('auth');;
 
 });
+
+
+// round()

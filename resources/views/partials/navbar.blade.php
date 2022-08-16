@@ -3,7 +3,7 @@
 
 
 
-        <a class="navbar-brand" href="{{route("home")}}">MyWedding </a>
+        <a class="navbar-brand" href="{{ route('home') }}">MyWedding </a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,10 +23,10 @@
             @auth
                 <div class="d-flex">
 
-                    <form method="POST" action="/user/logout" class="nav-item">
+                    <form method="POST" action="{{ route('logout') }}" class="nav-item">
                         @csrf
                         <ul class="navbar-nav">
-                            <button type="submit" class="btn text-light ">Logout {{ auth()->user()->name }}</button>
+                            <button type="submit" class="btn text-light ">Logout{{ auth()->user()->name }}</button>
                         </ul>
                     </form>
 

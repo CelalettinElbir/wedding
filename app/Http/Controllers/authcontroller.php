@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-
 class authcontroller extends Controller
 {
     /**
@@ -35,7 +34,7 @@ class authcontroller extends Controller
 
         $user = User::create($validated);
         auth()->login($user);
-        return redirect()->route("home")->with("message", "kullancı başarıyla oluşturuldu!!");
+        return redirect()->route("home")->with("message", "Kullancı başarıyla oluşturuldu!!");
     }
 
 
@@ -58,10 +57,10 @@ class authcontroller extends Controller
         if (auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route("home")->with("message", "başarıyla giriş yaptınız.");
+            return redirect()->route("home")->with("message", "Başarıyla giriş yaptınız");
         }
 
-        return back()->with("message", "bilgiler uyuşmuyor.");
+        return back()->with("fail", "Bilgiler uyuşmuyor");
     }
 
     public function logout(Request $request)
@@ -73,6 +72,6 @@ class authcontroller extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/')->with("message", "Kullanıcı başarıyla çıkış yaptı!!");
+        return redirect('/')->with("message", "Kullanıcı başarıyla çıkış yaptı!");
     }
 }

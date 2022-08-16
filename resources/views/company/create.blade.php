@@ -19,7 +19,7 @@
                 <h2 class="text-center">Firma olarak Kaydol </h2>
             </div>
             <form class="card-body container justify-content-center" method="POST" action="/company/create"
-            enctype="multipart/form-data">
+                enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="email">Email adresi</label>
@@ -119,7 +119,7 @@
                 <div class="form-group">
                     <label for="description">Açıklama </label>
 
-                    <textarea name="description" class="form-control" id="description" cols="10" rows="2"></textarea>
+                    <textarea name="description" class="form-control" id="editor" cols="20" rows="4"></textarea>
 
                 </div>
 
@@ -140,4 +140,24 @@
 
 
     </div>
+
+
+
+
+@endsection
+
+{{-- @section('css-section')
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+@endsection --}}
+
+
+@section('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 @endsection

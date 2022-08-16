@@ -1,8 +1,6 @@
 @extends('layout')
 
 
-
-
 @section('content')
     <div class="container mt-3">
         <div class="header border-bottom mb-2 mt-2 ">
@@ -25,7 +23,7 @@
                     </div>
                 </div>
                 <div class="menu-left">
-                    <form method="POST" class="contact" action="{{ route('add-favorite',[$company]) }}">
+                    <form method="POST" class="contact" action="{{ route('add-favorite', [$company]) }}">
                         @csrf
                         <button class="btn" type="submit"><span class="m-2"><i class="fa fa-heart "
                                     aria-hidden="true"></i>favorilere ekle</span>
@@ -35,16 +33,22 @@
             </div>
         </div>
 
+
+
         <div class="row">
 
             <div class="col-md-8 ">
-
+                {{-- carausell!!!!! --}}
                 <x-carousel :company="$company" />
+
                 <div class="border-bottom  mb-2">
                     <h1>About</h1>
-                    <p>
+                    <div class="">
                         {{ $company->description }}
-                    </p>
+                        
+
+
+                    </div>
                 </div>
                 <div class="contact-header">
                     <h3>
@@ -65,9 +69,8 @@
                                         aria-hidden="true"></i></span>{{ $company->telno }} </p>
                         </li>
                         </li>
-                        <li>
-                            <p> <span class="m-1"><i class="fa-solid fa-envelope "></i></span>{{ $company->email }}
-                            </p>
+                        <p> <span class="m-1"><i class="fa-solid fa-envelope "></i></span>{{ $company->email }}
+                        </p>
                         </li>
                     </div>
                     <li>
@@ -80,6 +83,9 @@
 
 
             <div class="col-md-4">
+
+                <label for="birthday">Birthday</label>
+                <input type="date" id="birthday" class="form-control" name="birthday">
 
             </div>
 

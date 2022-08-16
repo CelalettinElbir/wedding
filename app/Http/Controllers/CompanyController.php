@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\company;
-use App\Models\companyimages;
-use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
+use App\Models\companyimages;
+use Intervention\Image\Facades\Image;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Support\ValidatedData;
 
 class CompanyController extends Controller
 {
@@ -18,7 +20,6 @@ class CompanyController extends Controller
     {
         return view("company.index", ['data' => company::all()]);
     }
-
 
 
 
@@ -42,38 +43,47 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $validated = $request->validate([
             'name' => 'required',
             "company_name" => 'required',
             "telno" => 'required',
             "description" => 'required',
-            'email' => 'required|email',
+            'email' => 'required',
             "password" => 'required|confirmed',
             "capasity" => 'required',
             "mealcapacity" => 'required',
             "price" => 'required',
             "location" => 'required',
+            // "file_path" => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         ]);
 
 
         // $data["password"] = bcrypt($data['password']);
 
-
         $company = company::create($validated);
+
+
         foreach ($request->file('file_path') as $item) {
             $image = new companyimages();
-            $path = $item->store('/images/resource', ['disk' =>   'my_files']);
-            $image->url = $path;
+
+
+            $ogImage = Image::make($item->path());
+            $ogImage->resize(720, 720);
+            // $thImage = $ogImage->save(public_path("/images/resource/") . $item->getClientOriginalName());
+            $imageName =  uniqid() . "." . $item->getClientOriginalExtension();
+            $ogImage->save(public_path("/images/resource/") . $imageName);
             $image->company_id = $company->id;
+            $image->url =  $imageName;
             $image->save();
         };
 
 
 
-        // auth()->login($company);
-        return redirect()->route("home")->with("message", "firma başarıyla oluşturuldu!!");
-    }
 
+        return redirect('/')->with('message', 'hello');
+    }
     /**
      * Display the specified resource.
      *
