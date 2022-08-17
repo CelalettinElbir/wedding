@@ -22,7 +22,6 @@
     @include('partials.flash')
     @yield('content')
 
-    {{-- @include('partials.footer') --}}
 
 
 

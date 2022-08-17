@@ -11,7 +11,7 @@
             <div class="col">
                 <div class="card h-100 border">
                     <img class="card-img-top " style="height: 350px; "
-                        src="{{ asset('/' . $item->takeimages()->first()->url) }}" alt="Card image cap">
+                        src="{{ asset('/images/resource/' . $item->takeimages()->first()->url) }}" alt="Card image cap">
 
                     <div class="card-body">
                         <h5 class="card-title" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">{{ $item->company_name }}</h5>

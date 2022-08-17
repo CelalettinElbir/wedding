@@ -13,12 +13,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li> --}}
+               
 
             </ul>
-
 
             @auth
                 <div class="d-flex">
@@ -26,7 +23,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="nav-item">
                         @csrf
                         <ul class="navbar-nav">
-                            <button type="submit" class="btn text-light ">Logout{{ auth()->user()->name }}</button>
+                            <button type="submit" class="btn text-light ">Logout ({{ auth()->user()->name }})</button>
                         </ul>
                     </form>
 

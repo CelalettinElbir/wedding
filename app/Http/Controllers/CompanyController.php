@@ -18,7 +18,13 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view("company.index", ['data' => company::all()]);
+        // dd(request());
+        // return view("company.index", ['data' => company::latest()->get()]);
+        
+        
+        $data = company::latest()->filter(request(["max_capasity","min_capasity","max_price","min_price"]))->get();
+
+        return view("company.index",compact("data"));
     }
 
 

@@ -44,8 +44,8 @@
                 <div class="border-bottom  mb-2">
                     <h1>About</h1>
                     <div class="">
-                        {{ $company->description }}
-                        
+                        {{ strip_tags($company->description) }}
+
 
 
                     </div>
@@ -58,17 +58,11 @@
                 </div>
 
                 <ul class="contact-body ">
-
                     <div class="d-flex gap-5">
-
                         <li>
                             {{ $company->name }}
                         </li>
-                        <li>
-                            <p> <span class="m-1"><i class="fa fa-phone"
-                                        aria-hidden="true"></i></span>{{ $company->telno }} </p>
-                        </li>
-                        </li>
+
                         <p> <span class="m-1"><i class="fa-solid fa-envelope "></i></span>{{ $company->email }}
                         </p>
                         </li>

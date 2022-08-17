@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\CompanyController;
@@ -49,4 +50,9 @@ route::controller(FavoriteController::class)->group(function () {
 });
 
 
-// round()
+Route::controller(adminController::class)->group(function () {
+    Route::get("/admin/panel","deneme");
+  
+
+
+}); 
