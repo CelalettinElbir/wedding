@@ -88,7 +88,8 @@ class CompanyController extends Controller
 
 
 
-        return redirect('/')->with('message', 'hello');
+        // return redirect('/')->with('message', 'hello');
+        return redirect()->route('create_services')->with("succses","şirket bilgileri başarıyla kaydedildi");
     }
     /**
      * Display the specified resource.

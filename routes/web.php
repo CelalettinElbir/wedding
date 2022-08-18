@@ -6,6 +6,7 @@ use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\serviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,10 +45,16 @@ Route::controller(CompanyController::class)->group(function () {
 });
 
 route::controller(FavoriteController::class)->group(function () {
-    route::post("/company/favorite/{company}", "store")->name("add-favorite")->middleware('auth');;
-    Route::get("/user/favorites","index")->name("index-favorites")->middleware('auth');;
+    route::post("/company/favorite/{company}", "store")->name("add-favorite")->middleware('auth');
+    Route::get("/user/favorites","index")->name("index-favorites")->middleware('auth');
+    Route::delete("/user/favorites/{company}","destroy")->name("favorite-delete")->middleware('auth');;
 
+
+   
 });
+
+
+
 
 
 Route::controller(adminController::class)->group(function () {
@@ -56,3 +63,10 @@ Route::controller(adminController::class)->group(function () {
 
 
 }); 
+
+
+Route::controller(serviceController::class)->group(function (){
+    route::get("/company/service/create","create");
+    route::post("/company/service/create","store")->name("store-service");
+
+});

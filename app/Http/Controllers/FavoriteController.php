@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\company;
 use App\Models\favorite;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -77,7 +77,6 @@ class FavoriteController extends Controller
      */
     public function edit(favorite $favorite)
     {
-        //
     }
 
     /**
@@ -98,8 +97,10 @@ class FavoriteController extends Controller
      * @param  \App\Models\favorite  $favorite
      * @return \Illuminate\Http\Response
      */
-    public function destroy(favorite $favorite)
+    public function destroy(favorite $favorite, company $company)
     {
-        //
+        // dd($company->id);
+        DB::table('favorites')->where("user_id", auth::user()->id)->where("company_id", '=', $company->id)->delete();
+        return back()->with("success", "başarıyla kaldırıldı!");
     }
 }

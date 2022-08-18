@@ -130,8 +130,8 @@
 
 
                 <div class="mt-2 d-flex justify-content-between">
-                    <a href="/user/login" class="btn btn-outline-primary">hesabınız var mı ? </a>
-                    <button type="submit" class="btn btn-primary float-center ">Submit</button>
+                    <a href="#" class="btn btn-outline-primary">hesabınız var mı ? </a>
+                    <button type="submit" class="btn btn-primary float-center ">devam</button>
                 </div>
 
             </form>

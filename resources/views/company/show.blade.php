@@ -18,7 +18,7 @@
                         <span><i class="fa fa-star" aria-hidden="true"></i> 5.0</span>
                     </div>
                     <div class="price p-2">
-                        <p>{{ $company->price }} kişi için {{ $company->price }} <span><i
+                        <p>{{ $company->capasity }} kişi için {{ $company->price }} <span><i
                                     class="fa-solid fa-turkish-lira-sign"></i></span></p>
                     </div>
                 </div>
@@ -77,6 +77,7 @@
 
 
             <div class="col-md-4">
+
 
                 <label for="birthday">Birthday</label>
                 <input type="date" id="birthday" class="form-control" name="birthday">
