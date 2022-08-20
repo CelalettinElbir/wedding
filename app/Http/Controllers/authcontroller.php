@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+
 class authcontroller extends Controller
 {
     /**
@@ -27,8 +28,6 @@ class authcontroller extends Controller
             'email' => 'required|email',
             "password" => 'required|confirmed',
         ]);
-
-
 
         $validated["password"] = bcrypt($validated['password']);
 
@@ -66,12 +65,15 @@ class authcontroller extends Controller
     public function logout(Request $request)
     {
 
+        $isCompany = Auth::guard("company")->check();
         Auth::logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
+        if ($isCompany) {
+            return redirect('/')->with("message", "şirket başarıyla çıkış yaptı!");
+        }
         return redirect('/')->with("message", "Kullanıcı başarıyla çıkış yaptı!");
     }
 }

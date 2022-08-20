@@ -22,7 +22,7 @@
                         {{-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> --}}
                     </div>
                     <div class="buttons d-flex justify-content-between m-3">
-                        <a class="btn btn-lg " href="{{ route('company-detail', [$item->id]) }}"
+                        <a class="btn btn-lg " href="{{ route('company.detail', [$item->id]) }}"
                             style="background-color:#d4d4d8">detaylar</a>
                         <button class="btn btn-lg" style="background-color:#d4d4d8">istek oluştur.</button>
                         <a class="btn btn-lg btn-danger " href="{{ route('favorite-delete', [$item]) }}">kaldır

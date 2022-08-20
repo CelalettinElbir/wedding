@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\company;
 use App\Models\service;
 use Illuminate\Http\Request;
+
 class serviceController extends Controller
 {
     /**
@@ -22,7 +24,8 @@ class serviceController extends Controller
      */
     public function create()
     {
-        return view("service.create");
+        $company = session()->get('company');
+        return view("service.create", compact("company"));
     }
 
     /**
@@ -33,18 +36,19 @@ class serviceController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request);
         $request->validate([
             'addMoreInputFields.*.subject' => 'required'
         ]);
-//buraya devam edebilmek için usera type koymama gerekiyor.
 
-        // foreach ($request->addMoreInputFields as $item) {
-        //     $service = new service;
-        //     service->company_id = 
-        
-        // }
-        // dd($request->addMoreInputFields);
-        // print_r($request->addMoreInputFields);
+        foreach ($request->addMoreInputFields  as $item) {
+            $service = new service;
+            $service->company_id = $request->company;
+            $service->feature = $item["subject"];
+            $service->save();
+        };
+        return redirect("/")->with("succses", "şirket ve özellikleri başarıyla oluşturuldu.");
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('companylayout')
 
 @section('content')
     @if ($errors->any())

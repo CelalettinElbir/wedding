@@ -5,12 +5,21 @@ namespace App\Models;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class company extends Model
+class company extends Authenticatable
 {
-    use HasFactory;
-    protected $guarded = [];
+    use HasApiTokens, HasFactory, Notifiable;
 
+    protected $guarded = [];
+    // protected $guard = "company";
+
+    protected $hidden = [
+        'password',
+
+    ];
 
 
     public function scopeFilter($query, array $filters = null)

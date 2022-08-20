@@ -77,7 +77,16 @@
 
 
             <div class="col-md-4">
+                <h3>özellikler</h3>
+                <ul>
 
+
+                    @foreach ($company->takeServices() as $services)
+                    <li>{{ $services->feature}}</li>
+                    @endforeach
+
+
+                </ul>
 
                 <label for="birthday">Birthday</label>
                 <input type="date" id="birthday" class="form-control" name="birthday">

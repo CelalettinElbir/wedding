@@ -28,45 +28,59 @@ route::get("/", [homeController::class, "index"])->name("home");
 
 
 
-Route::controller(authcontroller::class)->group(function () {
-    Route::get('/user/register', 'create');
-    Route::post('/user/register', 'store');
-    Route::get("/user/login", "login")->name("login");
-    Route::post("/user/login", "authenticate");
-    Route::post("/user/logout", "logout")->name("logout");
+Route::controller(authcontroller::class)->prefix('user')->name("user.")->group(function () {
 
+    Route::middleware(["guest:web"])->group(function () {
+        Route::get('/register', 'create')->name("register");
+        Route::post('/register', 'store');
+        Route::get("/login", "login")->name("login");
+        Route::post("/login", "authenticate");
+    });
+
+    Route::middleware(["auth:web"])->group(function () {
+        Route::post("/logout", "logout")->name("logout");
+    });
 });
 
-Route::controller(CompanyController::class)->group(function () {
-    route::get("/company/create", "create");
-    route::get("/company", "index");
-    route::get("/company/{company}", "show")->name("company-detail");
-    route::post("/company/create", "store");
+
+
+Route::controller(CompanyController::class)->prefix('company')->name("company.")->group(function () {
+
+
+    Route::middleware(["auth:company"])->group(function () {
+        route::get("/home", "home")->name("home");
+        route::get("/{company}/edit", "edit")->name("edit");
+        Route::post("/logout", "logout")->name("logout");
+    });
+
+
+    Route::middleware(["guest:company"])->group(function () {
+        route::get("/login", "companyLogin")->name("login");
+        route::post("/login", "companyAuth")->name("auth");
+        route::get("/create", "create")->name("create");
+        route::get("/", "index")->name("index");
+        route::post("/create", "store");
+        route::get("/{company}", "show")->name("detail");
+    });
 });
+
+
+
+
 
 route::controller(FavoriteController::class)->group(function () {
     route::post("/company/favorite/{company}", "store")->name("add-favorite")->middleware('auth');
-    Route::get("/user/favorites","index")->name("index-favorites")->middleware('auth');
-    Route::delete("/user/favorites/{company}","destroy")->name("favorite-delete")->middleware('auth');;
-
-
-   
+    Route::get("/user/favorites", "index")->name("index-favorites")->middleware('auth');
+    Route::delete("/user/favorites/{company}", "destroy")->name("favorite-delete")->middleware('auth');;
 });
 
 
-
-
-
 Route::controller(adminController::class)->group(function () {
-    Route::get("/admin/panel","deneme");
-  
+    Route::get("/admin/panel", "deneme");
+});
 
 
-}); 
-
-
-Route::controller(serviceController::class)->group(function (){
-    route::get("/company/service/create","create");
-    route::post("/company/service/create","store")->name("store-service");
-
+Route::controller(serviceController::class)->group(function () {
+    route::get("/company/service/create", "create")->name("create_services");
+    route::post("/company/service/create", "store")->name("store-service");
 });

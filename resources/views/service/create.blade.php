@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="container">
-
-        <form action="{{route('store-service') }}" method="POST" class="mt-3">
+        {{-- {{ dd($company->id) }} --}}
+        <form action="{{ route('store-service') }}" method="POST" class="mt-3">
             @csrf
             @if ($errors->any())
                 <div class="alert alert-danger" role="alert">
@@ -29,7 +29,10 @@
                 <tr>
                     <td><input type="text" name="addMoreInputFields[0][subject]" placeholder="Enter subject"
                             class="form-control" />
+                           <input type="hidden" name="company" value={{$company->id}} />
+
                     </td>
+
                     <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-info">Add
                             Subject</button></td>
                 </tr>

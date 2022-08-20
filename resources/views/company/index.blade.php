@@ -56,7 +56,7 @@
 
                                     <p class="card-text"><small class="text-muted">{{ $item->created_at }}</small></p>
 
-                                    <a href="{{ route('company-detail', [$item->id]) }}"
+                                    <a href="{{ route('company.detail', [$item->id]) }}"
                                         class="btn btn-info m-1 mr-auto">detaylar </a>
 
                                 </div>
