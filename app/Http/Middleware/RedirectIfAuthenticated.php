@@ -27,8 +27,7 @@ class RedirectIfAuthenticated
                 if ($guard === "company") {
                     return redirect()->route("company.home");
                 }
-
-                return redirect(RouteServiceProvider::HOME);
+                return redirect()->route("home");
             }
         }
 

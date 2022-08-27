@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
+
 return [
 
     /*
@@ -16,6 +18,10 @@ return [
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
+    ],
+    'company' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\company::class,
     ],
 
     /*

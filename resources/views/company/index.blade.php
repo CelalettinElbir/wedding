@@ -1,11 +1,8 @@
-@extends('layout')
-
+@extends('layout2')
+@include('partials.lastnavbarindex')
 @section('content')
     <div class=" container overflow-hidden">
         <div class="row ">
-
-
-
 
             <div class=" col-md-3  mt-2">
                 <form action="">
@@ -26,7 +23,7 @@
 
                     </div>
 
-                    <button class="btn btn-info " type="submit">filtrele</button>
+                    <button class="btn btn-primary " type="submit">filtrele</button>
                 </form>
 
             </div>
@@ -37,11 +34,17 @@
                     <div class="card  m-2" style="max-width: 720px;">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="{{ asset('/images/resource/' . $item->takeimages()->first()->url) }}"
-                                    class="img-fluid rounded-start" alt="...">
+
+                                @if ($item->takeimages()->isEmpty())
+                                    <img src="{{ asset('/img/no-image.jpg') }}" class="img-fluid rounded-start" style="border: 2px solid #FF6F0F" alt="...">
+                                @else
+                                    <img src="{{ asset('/images/resource/' . $item->takeimages()->first()->url) }}"
+                                        class="img-fluid rounded-start" alt="...">
+                                @endif
+
                             </div>
                             <div class="col-md-8">
-                                <div class="card-body">
+                                <div class="card-body mt-4">
                                     <h3 class="card-title">{{ $item->company_name }}</h3>
 
                                     <p class="card-text">
@@ -52,14 +55,22 @@
                                         @else
                                             {{ strip_tags($item->description) }}
                                         @endif
+
+
+
                                     </p>
 
-                                    <p class="card-text"><small class="text-muted">{{ $item->created_at }}</small></p>
 
-                                    <a href="{{ route('company.detail', [$item->id]) }}"
-                                        class="btn btn-info m-1 mr-auto">detaylar </a>
+
+                                    <div class="text-end ">
+                                        <a href="{{ route('company.detail', [$item->id]) }}"
+                                            class="btn   btn-primary m-1 mr-auto">detaylar </a>
+
+                                    </div>
+
 
                                 </div>
+
 
                             </div>
 
@@ -67,7 +78,24 @@
                         </div>
                     </div>
                 @endforeach
+
+
+
             </div>
         </div>
+
+
+
+
+    </div>
+
+
+    <div class="d-flex justify-content-around">
+
+        @if ($data->hasPages())
+            <div class="pagination-wrapper">
+                {{ $data->links() }}
+            </div>
+        @endif
     </div>
 @endsection

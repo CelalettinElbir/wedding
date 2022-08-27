@@ -13,6 +13,12 @@ use function PHPSTORM_META\map;
 
 class FavoriteController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware("auth")->except("store");
+    }
     /**
      * Display a listing of the resource.
      *

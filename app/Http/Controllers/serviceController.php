@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class serviceController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware("auth:company")->only("edit");
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +55,7 @@ class serviceController extends Controller
             $service->feature = $item["subject"];
             $service->save();
         };
-        return redirect("/")->with("succses", "şirket ve özellikleri başarıyla oluşturuldu.");
+        return back()->with("message", "şirket ve özellikleri başarıyla oluşturuldu.");
     }
 
     /**
@@ -69,7 +76,7 @@ class serviceController extends Controller
      */
     public function edit(service $service)
     {
-        //
+        return view("service.edit");
     }
 
     /**
@@ -79,9 +86,18 @@ class serviceController extends Controller
      * @param  \App\Models\service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, service $service)
+    public function update(Request $request)
     {
-        //
+
+        if ($request->value !== null) {
+            $updatedService = service::find($request->id);
+            $updatedService->feature = $request->value;
+            $updatedService->save();
+            return "Başarıyla Güncellendi ";
+        } else {
+
+            return "bilinmeyen bir ptoblem oluştu.";
+        }
     }
 
     /**
@@ -90,8 +106,17 @@ class serviceController extends Controller
      * @param  \App\Models\service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(service $service)
+    public function destroy(Request $request)
     {
-        //
+        if (service::find($request->service) !== null) {
+
+            service::find($request->service)->delete();
+
+            return "başarıyla silindi ";
+        } else {
+
+
+            return "bilinmeyen bir ptoblem oluştu.";
+        }
     }
 }

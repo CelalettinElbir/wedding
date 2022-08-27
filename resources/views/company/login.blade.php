@@ -1,7 +1,7 @@
-@extends('companylayout')
+@extends('layout2')
 
 
-
+@include('partials.lastnavbarindex')
 
 @section('content')
 

@@ -19,7 +19,7 @@ class Authenticate extends Middleware
 
 
         if (!$request->expectsJson()) {
-            $path = ["edit", "login"];
+            $path = ["edit" , "home"];
             foreach ($path as $item) {
                 if ($request->routeIs("company." . $item)) {
                     return route('company.login');

@@ -1,11 +1,17 @@
 @extends('layout')
 
 
+@php
+if ($company === null) {
+    $company = Auth::guard('company')->user();
+}
+
+@endphp
+
 
 @section('content')
     <div class="container">
-        {{-- {{ dd($company->id) }} --}}
-        <form action="{{ route('store-service') }}" method="POST" class="mt-3">
+        <form action="{{ route('service.store') }}" method="POST" class="mt-3">
             @csrf
             @if ($errors->any())
                 <div class="alert alert-danger" role="alert">
@@ -28,8 +34,8 @@
                 </tr>
                 <tr>
                     <td><input type="text" name="addMoreInputFields[0][subject]" placeholder="Enter subject"
-                            class="form-control" />
-                           <input type="hidden" name="company" value={{$company->id}} />
+                            class="form-control" required />
+                        <input type="hidden" name="company" value={{ $company->id }} />
 
                     </td>
 
@@ -48,7 +54,7 @@
         $("#dynamic-ar").click(function() {
             ++i;
             $("#dynamicAddRemove").append('<tr><td><input type="text" name="addMoreInputFields[' + i +
-                '][subject]" placeholder="Enter subject" class="form-control" /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+                '][subject]" placeholder="özellik giriniz" class="form-control" required /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">sil</button></td></tr>'
             );
         });
         $(document).on('click', '.remove-input-field', function() {

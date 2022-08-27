@@ -12,7 +12,7 @@
     <script src="https://kit.fontawesome.com/75fb834fc5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/app.css">
     @stack('css')
-    
+
     @yield('css-section')
 </head>
 

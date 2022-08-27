@@ -1,5 +1,5 @@
-@extends('companylayout')
-
+@extends('layout2')
+@include('partials.lastnavbarindex')
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">

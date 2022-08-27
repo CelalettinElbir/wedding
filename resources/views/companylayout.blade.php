@@ -17,9 +17,9 @@
 </head>
 
 <body>
+    @include('partials.flash')
 
     @include('partials.company_navbar')
-    @include('partials.flash')
     @yield('content')
 
 

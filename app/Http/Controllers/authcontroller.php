@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Redirect;
 
 class authcontroller extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware("guest:web")->only("create","login");
+        
+        
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +81,7 @@ class authcontroller extends Controller
 
         $request->session()->regenerateToken();
         if ($isCompany) {
-            return redirect('/')->with("message", "şirket başarıyla çıkış yaptı!");
+            return redirect('/')->with("message", "Şirket başarıyla çıkış yaptı!");
         }
         return redirect('/')->with("message", "Kullanıcı başarıyla çıkış yaptı!");
     }

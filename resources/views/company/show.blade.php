@@ -1,4 +1,5 @@
-@extends('layout')
+@extends('layout2')
+@include('partials.lastnavbarindex')
 
 
 @section('content')
@@ -12,7 +13,7 @@
                     <form method="POST" class="" action="/company/favorite/{company}">
                         @csrf
                         {{-- <input type="hidden" name="deneme"> --}}
-                        <button type="submit" class="btn btn-info">istek oluştur</button>
+                        <button  class="btn btn-primary">istek oluştur</button>
                     </form>
                     <div class="star p-2">
                         <span><i class="fa fa-star" aria-hidden="true"></i> 5.0</span>

@@ -8,16 +8,21 @@ use App\Models\companyimages;
 use Intervention\Image\Facades\Image;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\ValidatedData;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
 
+
+
     public function __construct()
     {
-        // $this->middleware('company')->except('logout');
-    }
+        $this->middleware(["guest:company"])->only(["create","companyLogin","companyAuth"]);
+        $this->middleware("auth:company")->only(["home","edit","logout","update"]);
 
+    }
 
 
     /**
@@ -31,7 +36,7 @@ class CompanyController extends Controller
         // return view("company.index", ['data' => company::latest()->get()]);
 
 
-        $data = company::latest()->filter(request(["max_capasity", "min_capasity", "max_price", "min_price"]))->get();
+        $data = company::latest()->filter(request(["max_capasity", "min_capasity", "max_price", "min_price"]))->paginate(5);
 
         return view("company.index", compact("data"));
     }
@@ -42,8 +47,8 @@ class CompanyController extends Controller
 
     public function home()
     {
-        // return view("company.home");
-        return "DENEME";
+        return view("company.home");
+        // return "DENEME";
     }
 
 
@@ -72,12 +77,9 @@ class CompanyController extends Controller
         $credentials = $request->except(['_token']);
         // dd( $credentials );
         if (Auth::guard('company')->attempt($credentials)) {
-            return redirect()->route("company.home")->with("message", "sucsessful.");
+            return redirect()->intended();
         }
-        return redirect()->action([
-            CompanyController::class,
-            'companyLogin'
-        ])->with('message', 'Credentials not matced in our records!');
+        return back()->withInput($request->only('email', 'remember'));
     }
 
 
@@ -110,8 +112,6 @@ class CompanyController extends Controller
 
         $company = company::create($validated);
 
-
-
         foreach ($request->file('file_path') as $item) {
             $image = new companyimages();
 
@@ -129,7 +129,7 @@ class CompanyController extends Controller
 
 
 
-        return redirect()->route('create_services')->with("succses", "şirket bilgileri başarıyla kaydedildi")
+        return redirect()->route('service.create')->with("succses", "Şirket bilgileri başarıyla kaydedildi")
             ->with(['company' => $company]);
     }
 
@@ -155,9 +155,17 @@ class CompanyController extends Controller
      */
     public function edit(company $company)
     {
-        return view("company.edit");
+        if (auth::guard("company")->user()->id === $company->id) {
+
+            return view("company.edit");
+        }
+        return back()->with("message", "Giriş reddedildi");
         // return "DENEME";
     }
+
+
+
+
 
     public function logout(Request $request)
     {
@@ -165,7 +173,7 @@ class CompanyController extends Controller
         Auth::guard("company")->logout();
 
 
-        return redirect('/')->with("message", "şirket başarıyla çıkış yaptı!");
+        return redirect('/')->with("message", "Şirket başarıyla çıkış yaptı!");
     }
 
 
@@ -180,7 +188,40 @@ class CompanyController extends Controller
      */
     public function update(Request $request, company $company)
     {
-        //
+
+        $updatedCompany = company::find($company->id);
+
+        $updatedCompany->name = $request->name;
+        $updatedCompany->company_name = $request->company_name;
+        $updatedCompany->telno = $request->telno;
+        $updatedCompany->description = $request->description;
+        $updatedCompany->capasity = $request->capasity;
+        $updatedCompany->mealcapacity     = $request->mealcapacity;
+        $updatedCompany->price   = $request->price;
+        $updatedCompany->location = $request->location;
+        $updatedCompany->email   = $request->email;
+        $updatedCompany->save();
+
+
+        if ($request->hasFile('file_path')) {
+            foreach ($request->file('file_path') as $item) {
+                $image = new companyimages();
+
+
+                $ogImage = Image::make($item->path());
+                $ogImage->resize(720, 720);
+                // $thImage = $ogImage->save(public_path("/images/resource/") . $item->getClientOriginalName());
+                $imageName =  uniqid() . "." . $item->getClientOriginalExtension();
+                $ogImage->save(public_path("/images/resource/") . $imageName);
+                $image->company_id = $company->id;
+                $image->url =  $imageName;
+                $image->save();
+            };
+        }
+
+
+
+        return redirect()->route("company.home")->with("message", "Başarıyla güncellendi");
     }
 
     /**
@@ -191,6 +232,9 @@ class CompanyController extends Controller
      */
     public function destroy(company $company)
     {
-        //
+        //id yi alıp db de sileceğimç
+
+        // company::where("id", $company->id)->delete();
+        // return 
     }
 }
