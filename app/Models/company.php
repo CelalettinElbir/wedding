@@ -59,4 +59,11 @@ class company extends Authenticatable
 
         return $this->belongsToMany(user::class, "favorites");
     }
+
+    public function usersRequests()
+    {
+
+        return $this->belongsToMany(user::class, "Orders");
+    }
+
 }

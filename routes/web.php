@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\companyImageController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\serviceController;
 
 /*
@@ -26,6 +27,12 @@ use App\Http\Controllers\serviceController;
 
 
 Route::get("/", [homeController::class, "index"])->name("home");
+
+route::controller(OrderController::class)->name("order.")->group(function () {
+
+    route::get("/company/{company}/orders", "index")->name("index");
+    route::post("{company}/orders/create", "store")->name("store");
+});
 
 
 
@@ -81,10 +88,14 @@ Route::controller(serviceController::class)->prefix("company")->name("service.")
 
     route::get("/service/{company}/edit", "edit")->name("edit");
 
-    route::put("/service/service","update")->name("update");
+    route::put("/service/service", "update")->name("update");
     route::delete("service/delete", "destroy")->name("destroy");
 });
 
 route::controller(companyImageController::class)->group(function () {
     route::delete("/company/images/delete", "destroy")->name("delete-images");
 });
+
+
+
+// Route::get("/company/order", [OrderController::class, "index"])->name("order.index");

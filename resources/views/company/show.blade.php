@@ -1,20 +1,54 @@
 @extends('layout2')
 @include('partials.lastnavbarindex')
 
-
+@php
+$company_id = $company->id;
+@endphp
 @section('content')
     <div class="container mt-3">
         <div class="header border-bottom mb-2 mt-2 ">
             <h1 class="hero-title"> {{ $company->company_name }}</h1>
             <div class="detail d-flex justify-content-between">
                 <div class="menu-left d-flex">
+                    {{-- kullanıcı girş yaptımı ve --}}
+
+                    @if (Auth::guard('web')->check())
+                        {{-- {{ dd(Auth::guard('web')->user()->companyOrder->contains('id')) }} --}}
+                        {{-- {{ dd(Auth::guard('web')->user()->companyOrder->contains('id', $company->id)) }} --}}
+
+                        @if (Auth::guard('web')->user()->companyOrder->contains('id', $company->id))
+                            <form method="POST" action="{{ route('order.store', [$company]) }}">
+                                @csrf
+                                {{-- <input type="hidden" name="deneme"> --}}
+                                <button class="btn btn-primary" disabled>istek oluşturuldu</button>
+                            </form>
+                        @else
+                            <form method="POST" action="{{ route('order.store', [$company]) }}">
+                                @csrf
+                                {{-- <input type="hidden" name="deneme"> --}}
+                                <button class="btn btn-primary">istek oluştur</button>
+                            </form>
+                        @endif
+                    @elseif(Auth::guard('company')->check())
+                        <form method="POST" action="{{ route('order.store', [$company]) }}">
+                            @csrf
+                            {{-- <input type="hidden" name="deneme"> --}}
+                            <button class="btn btn-primary" disabled>sirket olarak istek oluşturulamaz</button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('order.store', [$company]) }}">
+                            @csrf
+                            {{-- <input type="hidden" name="deneme"> --}}
+                            <button class="btn btn-primary">istek oluştur</button>
+                        </form>
+                    @endif
 
 
-                    <form method="POST" class="" action="/company/favorite/{company}">
-                        @csrf
-                        {{-- <input type="hidden" name="deneme"> --}}
-                        <button  class="btn btn-primary">istek oluştur</button>
-                    </form>
+
+
+
+
+
                     <div class="star p-2">
                         <span><i class="fa fa-star" aria-hidden="true"></i> 5.0</span>
                     </div>
@@ -83,7 +117,7 @@
 
 
                     @foreach ($company->takeServices() as $services)
-                    <li>{{ $services->feature}}</li>
+                        <li>{{ $services->feature }}</li>
                     @endforeach
 
 
