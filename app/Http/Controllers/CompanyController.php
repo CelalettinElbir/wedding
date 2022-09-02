@@ -19,9 +19,8 @@ class CompanyController extends Controller
 
     public function __construct()
     {
-        $this->middleware(["guest:company"])->only(["create","companyLogin","companyAuth"]);
-        $this->middleware("auth:company")->only(["home","edit","logout","update"]);
-
+        $this->middleware(["guest:company"])->only(["create", "companyLogin", "companyAuth"]);
+        $this->middleware("auth:company")->only(["home", "edit", "logout", "update"]);
     }
 
 
@@ -126,11 +125,12 @@ class CompanyController extends Controller
             $image->save();
         };
 
+        if (Auth::guard('company')->attempt($request->only(['email', 'password']))) {
 
-
-
-        return redirect()->route('service.create')->with("succses", "Şirket bilgileri başarıyla kaydedildi")
-            ->with(['company' => $company]);
+            return redirect()->route('service.create')->with("succses", "Şirket bilgileri başarıyla kaydedildi")
+                ->with(['company' => $company]);
+        }
+        return back()->withInput($request->only('email', 'remember'));
     }
 
 
@@ -218,8 +218,6 @@ class CompanyController extends Controller
                 $image->save();
             };
         }
-
-
 
         return redirect()->route("company.home")->with("message", "Başarıyla güncellendi");
     }

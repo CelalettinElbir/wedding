@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\adminAuthController;
+use App\Http\Controllers\admin\adminPageController;
 use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authcontroller;
@@ -77,9 +79,16 @@ route::controller(FavoriteController::class)->middleware("auth")->group(function
 });
 
 
-Route::controller(adminController::class)->group(function () {
-    Route::get("/admin/panel", "deneme");
+Route::controller(adminPageController::class)->group(function () {
+    Route::get("/admin/panel", "index");
+
 });
+Route::controller(adminAuthController::class)->group(function () {
+    Route::get("/admin/login", "login");
+
+
+});
+
 
 
 Route::controller(serviceController::class)->prefix("company")->name("service.")->group(function () {
