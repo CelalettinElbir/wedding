@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="utf-8">
@@ -32,8 +32,8 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('back2') }}/css/style.css" rel="stylesheet">
     <link href="{{ asset('css') }}/app.css" rel="stylesheet">
-
-    @stack('custom-style')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+@stack('head')
 </head>
 
 <body>

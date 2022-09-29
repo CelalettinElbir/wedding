@@ -38,27 +38,14 @@
                                 {{ $item->company_name }}</h5>
                             <p class="card-text " style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                                 {{ $item->description }}</p>
-                            {{-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> --}}
                         </div>
                         <div class="buttons d-flex justify-content-between m-3">
-
-
-
                             <form method="get" action="{{ route('favorite-delete', [$item]) }}">
                                 <a class="btn btn-lg " href="{{ route('company.detail', [$item->id]) }}"
                                     style="background-color:#d4d4d8">detaylar</a>
 
 
                             </form>
-
-                            <form method="POST" action="{{ route('favorite-delete', [$item]) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-lg">istek oluştur.</button>
-
-
-                            </form>
-
 
                             <form method="POST" action="{{ route('favorite-delete', [$item]) }}">
                                 @csrf

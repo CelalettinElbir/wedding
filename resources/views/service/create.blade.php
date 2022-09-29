@@ -1,5 +1,5 @@
-@extends('layout')
-
+@extends('layout2')
+@include('partials.lastnavbarindex')
 
 @php
 if ($company === null) {

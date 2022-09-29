@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\company;
+use App\Models\requests;
+use App\Notifications\OrderCreatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,18 +51,18 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , company $company)
     {
+
         if ($request->company && Auth::guard("web")->user()) {
+            Order::create([
 
-
-
-            $order = new Order;
-            $order->user_id =  Auth::guard("web")->user()->id;
-            $order->company_id = $request->company;
-            $order->save();
-
-            return back()->with("message", "başarılı");
+                "user_id" =>  Auth::guard("web")->user()->id,
+                "company_id" => $company->id,
+                "order_time" => $request->orderDate
+            ]);
+            company::find($company->id)->notify(new OrderCreatedNotification($request->orderDate, $company));
+            return back()->with("message", "istek oluşturuldu ");
         } else {
             dd($request->company, Auth::guard("web")->user());
             return back()->with("message", "hata oluştu.");
@@ -72,42 +75,49 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
-    {
-        //
-    }
+    // public function show(Order $order)
+    // {
+    //     //
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  *
+    //  * @param  \App\Models\Order  $order
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function edit(Order $order)
+    // {
+    //     //
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  \App\Models\Order  $order
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request, Order $order)
+    // {
+    //     //
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  *
+    //  * @param  \App\Models\Order  $order
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy(Order $order)
+    // {
+    //     //
+    // }
+
+
+
+    // public function date(Request $request)
+    // {
+    //     dd($request);
+    // }
 }

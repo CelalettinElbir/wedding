@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\companyimages;
 use Intervention\Image\Facades\Image;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Support\ValidatedData;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
@@ -47,7 +44,6 @@ class CompanyController extends Controller
     public function home()
     {
         return view("company.home");
-        // return "DENEME";
     }
 
 
@@ -74,7 +70,6 @@ class CompanyController extends Controller
     {
 
         $credentials = $request->except(['_token']);
-        // dd( $credentials );
         if (Auth::guard('company')->attempt($credentials)) {
             return redirect()->intended();
         }

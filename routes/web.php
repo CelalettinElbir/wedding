@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\admin\adminAuthController;
 use App\Http\Controllers\admin\adminPageController;
+use App\Http\Controllers\admin\companyCrudController;
+use App\Http\Controllers\admin\userCrudController;
 use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authcontroller;
@@ -34,6 +36,7 @@ route::controller(OrderController::class)->name("order.")->group(function () {
 
     route::get("/company/{company}/orders", "index")->name("index");
     route::post("{company}/orders/create", "store")->name("store");
+    // route::post("/company/create/date", "date")->name("date");
 });
 
 
@@ -59,7 +62,6 @@ Route::controller(CompanyController::class)->prefix('company')->name("company.")
     route::put("/{company}", "update")->name("update");
     route::delete("/{company}", "destroy")->name("delete");
 
-
     route::get("/login", "companyLogin")->name("login");
     route::post("/login", "companyAuth")->name("auth");
     route::get("/create", "create")->name("create");
@@ -79,17 +81,33 @@ route::controller(FavoriteController::class)->middleware("auth")->group(function
 });
 
 
-Route::controller(adminPageController::class)->group(function () {
-    Route::get("/admin/panel", "index");
-
-});
-Route::controller(adminAuthController::class)->group(function () {
-    Route::get("/admin/login", "login");
 
 
+// -----------------------------------------ADMİN---------------------------------------------------//
+Route::controller(adminPageController::class)->name("admin.")->middleware("isAdmin")->group(function () {
+    Route::get("/admin/panel", "index")->name("panel");
 });
 
+route::middleware("isAdmin")->prefix("admin")->name("admin.")->group(function () {
 
+    Route::resource('company', companyCrudController::class);
+    Route::resource('user', userCrudController::class);
+});
+
+
+Route::controller(adminAuthController::class)->name("admin.")->prefix("admin")->group(function () {
+
+    Route::middleware("isAdmin")->group(function () {
+        Route::get("/logout", "logout")->name("logout");
+    });
+    Route::middleware('isAdminLogin')->group(function () {
+        Route::get("/login", "login")->name("login");
+        Route::post("/login", "authenticate")->name("authenticate");
+    });
+});
+
+
+// --------------------------------------------------------------------------------------------//
 
 Route::controller(serviceController::class)->prefix("company")->name("service.")->group(function () {
     route::get("/service/create", "create")->name("create");

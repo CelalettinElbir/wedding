@@ -1,24 +1,20 @@
 <!-- Navbar Start -->
 
 <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
-    {{-- <div class="top-bar text-white-50 row gx-0 align-items-center d-none d-lg-flex">
-        <div class="col-lg-6 px-5 text-start">
-            <small><i class="fa fa-map-marker-alt me-2"></i>123 Street, New York, USA</small>
-            <small class="ms-4"><i class="fa fa-envelope me-2"></i>info@example.com</small>
-        </div>
-        <div class="col-lg-6 px-5 text-end">
-            <small>Follow us:</small>
-            <a class="text-white-50 ms-3" href=""><i class="fab fa-facebook-f"></i></a>
-            <a class="text-white-50 ms-3" href=""><i class="fab fa-twitter"></i></a>
-            <a class="text-white-50 ms-3" href=""><i class="fab fa-linkedin-in"></i></a>
-            <a class="text-white-50 ms-3" href=""><i class="fab fa-instagram"></i></a>
-        </div>
-    </div> --}}
+
 
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-        <a href="{{ route('company.index') }}" class="navbar-brand ms-4 ms-lg-0">
-            <h1 class="fw-bold text-primary m-0">Dream<span class="text-white">wedding</span></h1>
-        </a>
+
+        @if (Auth::guard('admin')->check())
+            <a href="{{ route('admin.panel') }}" class="navbar-brand ms-4 ms-lg-0">
+                <h1 class="fw-bold text-primary m-0">Dream<span class="text-white">wedding</span></h1>
+            </a>
+        @elseif(Auth::guard('company')->check())
+        @else
+            <a href="{{ route('company.home') }}" class="navbar-brand ms-4 ms-lg-0">
+                <h1 class="fw-bold text-primary m-0">Dream<span class="text-white">wedding</span></h1>
+            </a>
+        @endif
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,7 +44,7 @@
 
                         </div>
                     </div>
-                @elseif(Auth::check())
+                @elseif(Auth::guard("web")->check())
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Çıkış Yap</a>
                         <div class="dropdown-menu m-0">
@@ -56,15 +52,25 @@
                             <form method="POST" action="{{ route('user.logout') }}" class="nav-item">
                                 @csrf
                                 <ul class="navbar-nav">
-                                    <button type="submit" class="dropdown-item ">çıkış yap</button>
+                                    <button type="submit" class="dropdown-item ">{{ Auth::guard('web')->user()->name }}</button>
 
                                 </ul>
                             </form>
 
                         </div>
                     </div>
+                @elseif(Auth::guard('admin')->check())
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Çıkış yap</a>
+                        <div class="dropdown-menu m-0">
 
-                    <a href="{{ route('index-favorites') }}" class="nav-item nav-link ">favorilerim</a>
+                            <ul class="navbar-nav">
+                                <a href="{{ route('admin.logout') }}" class="dropdown-item ">admin çıkış </a>
+
+                            </ul>
+
+                        </div>
+                    </div>
                 @else
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Kayit Ol/Giriş
@@ -77,7 +83,8 @@
                     </div>
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Şirket giriş</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Şirket
+                            giriş</a>
                         <div class="dropdown-menu m-0">
                             <a href="{{ route('company.login') }}" class="dropdown-item">Giriş yap </a>
                             <a href="{{ route('company.create') }}" class="dropdown-item">Kayıt Ol </a>

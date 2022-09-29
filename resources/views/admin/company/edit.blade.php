@@ -1,28 +1,36 @@
-@extends('layout2')
-@include('partials.lastnavbarindex')
+@extends('admin.layouts.master')
 
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @php
-    $user = Auth::guard('company')->user();
-    @endphp
+
+    @if (count($errors) > 0)
+        <div class="p-1">
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-warning alert-danger fade show" role="alert">{{ $error }} <button
+                        type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>
+            @endforeach
+        </div>
+    @endif
+
 
     <div class="col-md-6 mx-auto  bg-light">
         <div class="card-header">
             <h2 class="text-center">Firma düzenle</h2>
         </div>
         <form class="card-body container justify-content-center" method="POST"
-            action="{{ route('company.update', [$user->id]) }}" enctype="multipart/form-data">
+            action="{{ route('admin.company.update', [$company->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
                 <label for="email">Email adresi</label>
-                <input type="text" class="form-control" value="{{ old('email', $user->email) }}" id="email"
+                <input type="text" class="form-control" value="{{ old('email', $company->email) }}" id="email"
                     placeholder="Enter email" name="email">
             </div>
             <div class="form-group">
                 <label for="name">Ad</label>
-                <input class="form-control" id="name" value="{{ old('name', $user->name) }}"
+                <input class="form-control" id="name" value="{{ old('name', $company->name) }}"
                     placeholder="Enter your Name" name="name">
 
             </div>
@@ -31,7 +39,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="company_name">Firma Adı</label>
-                        <input class="form-control" id="name" value="{{ old('company_name', $user->company_name) }}"
+                        <input class="form-control" id="name" value="{{ old('company_name', $company->company_name) }}"
                             placeholder="Enter your Name" name="company_name">
 
                     </div>
@@ -40,7 +48,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="telno">Telefon numarasi</label>
-                        <input class="form-control" value="{{ old('telno', $user->telno) }}" id="telno"
+                        <input class="form-control" value="{{ old('telno', $company->telno) }}" id="telno"
                             placeholder="Enter your Phone" name="telno" type="number">
                     </div>
 
@@ -57,7 +65,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="capasity">Mekan kapasitesi</label>
-                        <input type="text" class="form-control" value="{{ old('capasity', $user->capasity) }}"
+                        <input type="text" class="form-control" value="{{ old('capasity', $company->capasity) }}"
                             id="capasity" name="capasity">
                     </div>
                 </div>
@@ -66,7 +74,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="mealcapacity">Yemek kapasitesi</label>
-                        <input type="number" value="{{ old('mealcapacity', $user->mealcapacity) }}" class="form-control"
+                        <input type="number" value="{{ old('mealcapacity', $company->mealcapacity) }}" class="form-control"
                             id="mealcapacity" name="mealcapacity">
                     </div>
                 </div>
@@ -82,8 +90,8 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="price">Fiyat</label>
-                        <input type="text" value="{{ old('price', $user->price) }}" class="form-control" id="price"
-                            name="price">
+                        <input type="text" value="{{ old('price', $company->price) }}" class="form-control"
+                            id="price" name="price">
                     </div>
 
 
@@ -93,6 +101,7 @@
 
 
                 <div class="col">
+
 
 
                     <div class="form-group">
@@ -105,14 +114,14 @@
                                         <h5 class="modal-title" id="exampleModalLabel">silmek istediğiniz fotoğrafları
                                             seçiniz
                                         </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn-close btn" data-dismiss="modal"
+                                            aria-label="Close"><i class="fa fa-times"></i></button>
                                     </div>
                                     <div class="modal-body">
-                                        @if (count($user->takeimages()) === 0)
+                                        @if (count($company->takeimages()) === 0)
                                             <h1>silinecek fotoğraf yoktur. </h1>
                                         @else
-                                            @foreach ($user->takeimages() as $item)
+                                            @foreach ($company->takeimages() as $item)
                                                 <tr>
 
                                                     <img id="{{ $item->id }}"
@@ -127,7 +136,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">vazgeç</button>
+                                            data-dismiss="modal">vazgeç</button>
                                         <button type="button" class="btn btn-primary" id="deleteItems">sil</button>
                                     </div>
                                 </div>
@@ -136,22 +145,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="file_path">resim yükle</label>
 
-                        @if (count($user->takeimages()) === 0)
-                            <button type="button" disabled class="btn btn-primary form-control" data-bs-toggle="modal"
-                                data-bs-target="#imagemodel">
+                        {{-- <label for="file_path">resim yükle</label> --}}
+
+                        @if (count($company->takeimages()) === 0)
+                            <button type="button" disabled class="btn btn-primary form-control" data-toggle="modal"
+                                data-target="#imagemodel">
 
                                 silinecek fograf yoktur.
 
                             </button>
                         @else
-                            <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal"
-                                data-bs-target="#imagemodel">
+                            <button type="button" class="btn btn-primary form-control" data-toggle="modal"
+                                data-target="#imagemodel">
                                 resim sil
                             </button>
                         @endif
-                        <input type="file" value="{{ old('file_path', $user->name) }}" class="form-control"
+                        <input type="file" value="{{ old('file_path', $company->name) }}" class="form-control"
                             id="file_path" name="file_path[]" multiple>
                     </div>
                 </div>
@@ -163,8 +173,8 @@
             <div class="form-group">
 
                 <div class="d-grid m-4  mx-auto">
-                    <button class="btn btn-primary" data-bs-toggle="modal" type="button"
-                        data-bs-target="#servicemodel">özellikleri düzenle</button>
+                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#servicemodel"
+                        type="button">özellikleri düzenle</button>
                 </div>
 
 
@@ -182,8 +192,8 @@
                 <label for="description">Açıklama </label>
 
                 <textarea name="description" class="form-control" id="editor" cols="20" rows="4">
-                   {{ old('description', $user->description) }}
-                </textarea>
+               {{ old('description', $company->description) }}
+            </textarea>
 
             </div>
 
@@ -191,9 +201,9 @@
                 <label for="location">Konum </label>
                 <textarea name="location" class="form-control" id="location" cols="10" rows="2">
 
-                   {{ old('location', $user->location) }}
+               {{ old('location', $company->location) }}
 
-                </textarea>
+            </textarea>
             </div>
 
 
@@ -204,8 +214,7 @@
 
 
             <div class="mt-2 d-flex justify-content-between">
-                <a href="" class="btn btn-outline-primary">hesabınız var mı ? </a>
-                <button class="btn btn-primary float-center ">devam</button>
+                <button class="btn btn-primary btn-block ">Kaydet</button>
             </div>
 
         </form>
@@ -222,7 +231,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">özellikleri düzenle</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn" data-dismiss="modal" aria-label="Close"><i
+                                class="fa fa-times"></i></button>
                     </div>
                     <div class="modal-body ">
                         <form action="{{ route('service.store') }}" method="POST" class="mt-3">
@@ -230,14 +240,14 @@
 
                             <table class="table table-bordered" id="dynamicAddRemove">
                                 <tr>
-                                    <th>Subject</th>
-                                    <th>Action</th>
+                                    <th>Özellik</th>
+                                    <th>İşlemler</th>
                                 </tr>
 
-                                @foreach (Auth::guard('company')->user()->takeservices() as $item)
+                                @foreach ($company->takeservices() as $item)
                                     <tr class="container{{ $item->id }}">
                                         <td><input type="text" name="item{{ $item->id }}"
-                                                placeholder="Enter subject" value="{{ $item->feature }}"
+                                                placeholder="özellik giriniz" value="{{ $item->feature }}"
                                                 class="form-control companyFeature" /></td>
                                         <td class="actions">
                                             <button class="btn btn-info update"
@@ -252,9 +262,8 @@
                                 @endforeach
                                 <tr>
                                     <td><input type="text" name="addMoreInputFields[0][subject]"
-                                            placeholder="Enter subject" class="form-control" required />
-                                        <input type="hidden" name="company"
-                                            value={{ Auth::guard('company')->user()->id }} />
+                                            placeholder="özellik gir " class="form-control" required />
+                                        <input type="hidden" name="company" value={{ $company->id }} />
 
                                     </td>
 
@@ -265,9 +274,9 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-outline-success btn-block save-changed">Save</button>
-                            
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">kapat</button>
+                        <button type="submit" class="btn btn-outline-success  save-changed">kaydet</button>
+
                     </div>
                     </form>
 
@@ -314,17 +323,12 @@
 
 
         });
-
-
-
-
-
     </script>
 
     <script type="text/javascript">
         let ajax_url = "{{ route('delete-images') }}";
         let token = "{{ csrf_token() }}";
-        let userId = "{{ Auth::guard('company')->user()->id }}"
+        let userId = "{{ $company->id }}"
 
         $(document).ready(function() {
 
@@ -438,6 +442,8 @@
 
 
 @endsection
+
+
 
 
 @section('scripts')

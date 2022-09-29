@@ -4,6 +4,15 @@
 @php
 $company_id = $company->id;
 @endphp
+
+@push('head')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+@endpush
+
+
 @section('content')
     <div class="container mt-3">
         <div class="header border-bottom mb-2 mt-2 ">
@@ -11,43 +20,6 @@ $company_id = $company->id;
             <div class="detail d-flex justify-content-between">
                 <div class="menu-left d-flex">
                     {{-- kullanıcı girş yaptımı ve --}}
-
-                    @if (Auth::guard('web')->check())
-                        {{-- {{ dd(Auth::guard('web')->user()->companyOrder->contains('id')) }} --}}
-                        {{-- {{ dd(Auth::guard('web')->user()->companyOrder->contains('id', $company->id)) }} --}}
-
-                        @if (Auth::guard('web')->user()->companyOrder->contains('id', $company->id))
-                            <form method="POST" action="{{ route('order.store', [$company]) }}">
-                                @csrf
-                                {{-- <input type="hidden" name="deneme"> --}}
-                                <button class="btn btn-primary" disabled>istek oluşturuldu</button>
-                            </form>
-                        @else
-                            <form method="POST" action="{{ route('order.store', [$company]) }}">
-                                @csrf
-                                {{-- <input type="hidden" name="deneme"> --}}
-                                <button class="btn btn-primary">istek oluştur</button>
-                            </form>
-                        @endif
-                    @elseif(Auth::guard('company')->check())
-                        <form method="POST" action="{{ route('order.store', [$company]) }}">
-                            @csrf
-                            {{-- <input type="hidden" name="deneme"> --}}
-                            <button class="btn btn-primary" disabled>sirket olarak istek oluşturulamaz</button>
-                        </form>
-                    @else
-                        <form method="POST" action="{{ route('order.store', [$company]) }}">
-                            @csrf
-                            {{-- <input type="hidden" name="deneme"> --}}
-                            <button class="btn btn-primary">istek oluştur</button>
-                        </form>
-                    @endif
-
-
-
-
-
-
 
                     <div class="star p-2">
                         <span><i class="fa fa-star" aria-hidden="true"></i> 5.0</span>
@@ -123,8 +95,44 @@ $company_id = $company->id;
 
                 </ul>
 
-                <label for="birthday">Birthday</label>
-                <input type="date" id="birthday" class="form-control" name="birthday">
+
+                <form method="POST" class="" action="{{ route('order.store', [$company]) }}">
+                    @csrf
+                    <label for="orderDate">Tarih</label>
+                    <input type="date" id="orderDate" class="form-control" name="orderDate" required>
+                    @if (Auth::guard('web')->check())
+                        {{-- {{ dd(Auth::guard('web')->user()->companyOrder->contains('id')) }} --}}
+                        {{-- {{ dd(Auth::guard('web')->user()->companyOrder->contains('id', $company->id)) }} --}}
+
+                        @if (Auth::guard('web')->user()->companyOrder->contains('id', $company->id))
+                            <form method="POST" action="{{ route('order.store', [$company]) }}">
+                                @csrf
+                                {{-- <input type="hidden" name="deneme"> --}}
+                                <button class="btn btn-primary" disabled>istek oluşturuldu</button>
+                            </form>
+                        @else
+                            <form method="POST" action="{{ route('order.store', [$company]) }}">
+                                @csrf
+                                {{-- <input type="hidden" name="deneme"> --}}
+                                <button class="btn btn-primary">istek oluştur</button>
+                            </form>
+                        @endif
+                    @elseif(Auth::guard('company')->check())
+                        <form method="POST" action="{{ route('order.store', [$company]) }}">
+                            @csrf
+                            {{-- <input type="hidden" name="deneme"> --}}
+                            <button class="btn btn-primary" disabled>sirket olarak istek oluşturulamaz</button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('order.store', [$company->name]) }}">
+                            @csrf
+                            {{-- <input type="hidden" name="deneme"> --}}
+                            <button class="btn btn-primary">istek oluştur</button>
+                        </form>
+                    @endif
+
+                </form>
+
 
             </div>
 
@@ -135,4 +143,7 @@ $company_id = $company->id;
 
 
     </div>
+
+
+
 @endsection

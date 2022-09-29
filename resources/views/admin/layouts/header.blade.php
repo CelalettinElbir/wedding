@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@yield('title',"Blog sitesi Yönetim paneli")</title>
+    <title>@yield('title',"Düğün  Yönetim paneli")</title>
     <!-- Custom fonts for this template-->
     <link href="{{ asset('back/')}}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -18,5 +18,8 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('back/')}}/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{{ asset('back/')}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    @yield("css")
 
 </head>

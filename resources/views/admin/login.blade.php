@@ -9,23 +9,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Admin Giriş</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('back/')}}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('back/') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('back/')}}/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{{ asset('back/') }}/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
 <body class="bg-gradient-primary">
+    @include('partials.flash')
+
 
     <div class="container">
-
+        {{-- @if (Auth::guard('admin')->check())
+            <p>{{ Auth::guard('admin')->user()->id }}</p>
+        @else
+            <h1>deneme</h1>
+        @endif --}}
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
@@ -35,41 +41,34 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> --}}
+                            <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Admin Panel</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Admin Paneli</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="POST" action="{{ route('admin.authenticate') }}">
+                                        @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <label for="email">Email adresi</label>
+                                            <input type="text" class="form-control" id="email"
+                                                placeholder="Enter email" name="email">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                            <label for="password">Şifre</label>
+                                            <input class="form-control" type="password" id="password"
+                                                placeholder="Enter your Password" name="password">
+                                            @error('password')
+                                                <p>{{ $message }}</p>
+                                            @enderror
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
+
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
-                                      
+                                        </button>
+
                                     </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -83,15 +82,71 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('back/')}}/vendor/jquery/jquery.min.js"></script>
-    <script src="{{ asset('back/')}}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('back/') }}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('back/') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('back/')}}/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ asset('back/') }}/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{ asset('back/')}}/js/sb-admin-2.min.js"></script>
+    <script src="{{ asset('back/') }}/js/sb-admin-2.min.js"></script>
 
 </body>
 
 </html>
+
+{{-- @extends('layout2')
+
+@include('partials.lastnavbarindex')
+
+
+@section('content')
+
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="content mt-5">
+
+        <div class="col-md-6 mx-auto  bg-light">
+
+            <div class="card-header ">
+                <h2 class="text-center">Giriş yap</h2>
+            </div>
+            <form class="card-body container justify-content-center" method="POST"
+                action="{{ route('admin.authenticate') }}">
+                @csrf
+                <div class="form-group">
+                    <label for="email">Email adresi</label>
+                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Şifre</label>
+                    <input class="form-control" type="password" id="password" placeholder="Enter your Password"
+                        name="password">
+                    @error('password')
+                        <p>{{ $massage }}</p>
+                    @enderror
+                </div>
+
+
+                <div class="mt-2 d-flex justify-content-between">
+                    <a href="/user/register" class="btn btn-outline-primary">Kayıt Ol </a>
+                    <button type="submit" class="btn btn-primary ">Submit</button>
+
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+@endsection --}}

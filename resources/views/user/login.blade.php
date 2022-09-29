@@ -27,18 +27,12 @@
                 @csrf
                 <div class="form-group">
                     <label for="email">Email adresi</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <input type="text" class="form-control" id="email" placeholder="email giriniz" name="email">
                 </div>
-                {{-- <div class="form-group">
-                    <label for="name">Ad</label>
-                    <input class="form-control" id="name" placeholder="Enter your Name" name="name">
-                    @error('name')
-                        <p>{{ $massage }}</p>
-                    @enderror
-                </div> --}}
+          
                 <div class="form-group">
                     <label for="password">Şifre</label>
-                    <input class="form-control" type="password" id="password" placeholder="Enter your Password"
+                    <input class="form-control" type="password" id="password" placeholder="sifreyi giriniz"
                         name="password">
                     @error('password')
                         <p>{{ $massage }}</p>
@@ -48,7 +42,7 @@
 
                 <div class="mt-2 d-flex justify-content-between">
                     <a href="/user/register" class="btn btn-outline-primary">Kayıt Ol </a>
-                    <button type="submit" class="btn btn-primary ">Submit</button>
+                    <button type="submit" class="btn btn-primary ">Giriş yap</button>
 
                 </div>
             </form>
