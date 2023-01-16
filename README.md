@@ -1,64 +1,54 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Dream wedding
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### What can you do?
 
-## About Laravel
+1. User can register, login , logout 
+2. Authenticated users can create a post and update their posts.
+3. User is able to filter posts by categories.
+4. User can go detail page of a specific post and see additional information. 
+5. Authenticated users can delete their posts.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### How to Install and Run the Project
+#### Packages
+1. Django==3.1.6
+2. Django-crispy-forms==1.11.1
+3. Pillow==8.1.1
+#### Installing 
+1. you need to install the packages specified above. 
+2. you should go to the directory where manage.py exists and run the commands 'make makemigrations' and 'migrate'.
+3. run the command 'manage.py runserver' now you can see my website at http://127.0.0.1:8000/.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### How to Use the Project
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<img src="https://user-images.githubusercontent.com/73540960/212503274-df7b5897-1945-4e29-b043-97664d66db97.png" alt="Website home" height ="400px;" width = "auto;" >
+when you are at home you can see the listed post. you can filter categories on the right side of website or you can go specific post by cliking the title of the post.
+You can see all posts of an auhtor by clicking auhtor name. you can go profile and update your user information.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<img src="https://user-images.githubusercontent.com/73540960/212503602-da80330a-3fe7-44c4-b63d-c4b8922d00ea.png" alt="Website home" height ="400px;" width = "auto;" >
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+if you want to create a post you need to register and then click 'create Post' on the navbar. after you click you will see the page above you can fill and select more than one category with ctrl + right click 
+after create you will redirect the post detail page. You can delete and edit option if the author of the post is you. you can see it below.
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<img src="https://user-images.githubusercontent.com/73540960/212503726-aa897db8-b9e1-453f-a314-314d0adba6a8.png" alt="Website home" height ="400px;" width = "auto;" >
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+if you want to see admin page you need to create a super user in django and go to /admin.You will see a page like below.you can add delete update  post user , category models. 
+
+
+
+<img src="https://user-images.githubusercontent.com/73540960/212503901-60476267-11d3-43b8-a035-612e43239f3b.png" alt="Website home" height ="400px;" width = "auto;" >
+
+
+
+
+
