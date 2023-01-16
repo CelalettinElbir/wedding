@@ -1,52 +1,66 @@
 # Dream wedding
-
+1. This project allows users to compare wedding venues' prices and find the place they want easily.
 ### What can you do?
 
-1. User can register, login , logout 
-2. Authenticated users can create a post and update their posts.
-3. User is able to filter posts by categories.
-4. User can go detail page of a specific post and see additional information. 
-5. Authenticated users can delete their posts.
+1. There are three types of user vendor, user, Admin 
+2. Vendors have wedding venues and all wedding venues can have multiple services like Parking, Tables
+3. User can look at and filter wedding venues authenticated user can add venues to use favorites. Users can make an order for a day by sending mail via the website.
+4. Admin can edit and delete vendors, users
+
 
 
 ### How to Install and Run the Project
 #### Packages
-1. Django==3.1.6
-2. Django-crispy-forms==1.11.1
-3. Pillow==8.1.1
+ 1. "PHP": "^8.0.2",
+ 2. guzzlehttp/guzzle: "^7.2",
+ 3. intervention/image: "^2.7",
+ 4. laravel/framework: "^9.19",
+ 5. laravel/sanctum: "^3.0",
+ 6. laravel/tinker: "^2.7",
+
+
 #### Installing 
 1. you need to install the packages specified above. 
-2. you should go to the directory where manage.py exists and run the commands 'make makemigrations' and 'migrate'.
+2. you should go to the directory where the project exists and run PHP artisan migrate.
 3. run the command 'manage.py runserver' now you can see my website at http://127.0.0.1:8000/.
 
 
 ### How to Use the Project
+#### User
+when you click the page you will see an entrance page like below.
 
-<img src="https://user-images.githubusercontent.com/73540960/212503274-df7b5897-1945-4e29-b043-97664d66db97.png" alt="Website home" height ="400px;" width = "auto;" >
-when you are at home you can see the listed post. you can filter categories on the right side of website or you can go specific post by cliking the title of the post.
-You can see all posts of an auhtor by clicking auhtor name. you can go profile and update your user information.
+<img src="https://user-images.githubusercontent.com/73540960/212673951-7553c7db-49d2-4020-ae8f-080ca25d7c6a.png" alt="Website home" height ="400px;" width = "auto;" >
 
+when you click 'see more ' you will redirect to the page where you can list or filter wedding venues you can see it below.
 
+<img src="https://user-images.githubusercontent.com/73540960/212677331-745162f1-3d91-4304-b30c-4468fc4beee3.png" alt="" height ="400px;" width = "auto;" >
 
-<img src="https://user-images.githubusercontent.com/73540960/212503602-da80330a-3fe7-44c4-b63d-c4b8922d00ea.png" alt="Website home" height ="400px;" width = "auto;" >
+when you click detail you will be navigated to the detail page for the wedding venue as you see below. On the detail page, you can add a favorite and make an order and send an auto-mail.
 
+#### vendor
 
+vendors have a home page you can go to that page by clicking DreamWedding you will see a page like below. 
 
+<img src="https://user-images.githubusercontent.com/73540960/212679726-771878fd-7daa-48a3-9fba-75c0eb4f8a6a.png" alt="detail page" height ="400px;" width = "auto;" >
 
-if you want to create a post you need to register and then click 'create Post' on the navbar. after you click you will see the page above you can fill and select more than one category with ctrl + right click 
-after create you will redirect the post detail page. You can delete and edit option if the author of the post is you. you can see it below.
+if you want to edit your wedding venue you should go company vendor page and edit your venue this page will be listed below. 
 
-
-
-
-<img src="https://user-images.githubusercontent.com/73540960/212503726-aa897db8-b9e1-453f-a314-314d0adba6a8.png" alt="Website home" height ="400px;" width = "auto;" >
-
-
-if you want to see admin page you need to create a super user in django and go to /admin.You will see a page like below.you can add delete update  post user , category models. 
+<img src="https://user-images.githubusercontent.com/73540960/212685464-ef6f9431-d6ae-4350-aff6-aebf357a3548.png" alt="vendor home" height ="400px;" width = "auto;" >
 
 
+after you click edit you will see a page where you can edit your wedding venue 
 
-<img src="https://user-images.githubusercontent.com/73540960/212503901-60476267-11d3-43b8-a035-612e43239f3b.png" alt="Website home" height ="400px;" width = "auto;" >
+<img src="https://user-images.githubusercontent.com/73540960/212686439-2c37494f-f2bf-49e2-b08c-3fa5fb17bd74.png" alt="vendor edit page" height ="400px;" width = "auto;" >
+
+
+#### Admin 
+
+On the admin page, you can see, edit, and delete user and vendor information.
+<img src="https://user-images.githubusercontent.com/73540960/212696220-3ae11aec-1120-4b48-8f74-6666b43d6c02.png" alt="vendor edit page" height ="400px;" width = "auto;" >
+
+### should be added 
+1. order list page 
+2. password forgot page.
 
 
 
