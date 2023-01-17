@@ -61,7 +61,7 @@ On the admin page, you can see, edit, and delete user and vendor information.
 ### should be added 
 1. order list page 
 2. password forgot page.
-
+3. User adresses can store in diffrent tables.
 
 
 
